@@ -1,0 +1,16 @@
+GET http://localhost:5000/users
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImVtYWlsIjoiYWhtYWRAZ21haWwuY29tIiwicGFzc3dvcmQiOiIkMmIkMTAkUXdZMUU3TEdFL1F4cTEydGNsOXNxTy5xOHp6QzIuRjdiMmVSTmsuVDRWOWlJSkUyNmoveS4iLCJpYXQiOjE3MjQ1Nzc1MjUsImV4cCI6MTcyNDU3NzU4NX0.8O83Oh4lxzFNMuTHb1h2VtJtaYXkCTImYRrcJc9AEBQ
+
+###
+POST http://localhost:5000/login
+Content-Type: application/json
+
+{
+  "email":"ahmad@gmail.com",
+  "password": "123",
+  "confirm_password": "123"
+}
+
+
+###
+GET http://localhost:5000/token
