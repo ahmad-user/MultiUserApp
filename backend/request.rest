@@ -1,16 +1,20 @@
-GET http://localhost:5000/users
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImVtYWlsIjoiYWhtYWRAZ21haWwuY29tIiwicGFzc3dvcmQiOiIkMmIkMTAkUXdZMUU3TEdFL1F4cTEydGNsOXNxTy5xOHp6QzIuRjdiMmVSTmsuVDRWOWlJSkUyNmoveS4iLCJpYXQiOjE3MjQ1Nzc1MjUsImV4cCI6MTcyNDU3NzU4NX0.8O83Oh4lxzFNMuTHb1h2VtJtaYXkCTImYRrcJc9AEBQ
+GET http://localhost:5000/usersPage
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImVtYWlsIjoiam9rb0BnbWFpbC5jb20iLCJyb2xlIjoidXNlciIsImlhdCI6MTcyNTgwNjQ5NiwiZXhwIjoxNzI1ODkyODk2fQ.yFtHcP8wU4VsePXpWqd_048YutBwGX027AQuDHK_oLU
+###
+GET http://localhost:5000/karyawan
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImVtYWlsIjoiam9rb0BnbWFpbC5jb20iLCJyb2xlIjoidXNlciIsImlhdCI6MTcyNTgwNDQ1NiwiZXhwIjoxNzI1ODkwODU2fQ.qUQokWI_60xb9eQ8zV-ZigEwjhy746o7V1d5Iieas88
 
 ###
 POST http://localhost:5000/login
 Content-Type: application/json
 
 {
-  "email":"ahmad@gmail.com",
+  "email":"joko@gmail.com",
   "password": "123",
-  "confirm_password": "123"
+  "confirm_password": "123",
+  "role": "user"
 }
-
 
 ###
 GET http://localhost:5000/token
+

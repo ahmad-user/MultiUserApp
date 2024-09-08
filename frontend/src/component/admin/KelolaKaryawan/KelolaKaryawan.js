@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-const KaryawanPage = () => {
+const KelolaKaryawan = () => {
   const [karyawan, setKaryawan] = useState([]);
   const navigate = useNavigate();
 
@@ -127,4 +127,4 @@ const KaryawanPage = () => {
   );
 };
 
-export default KaryawanPage;
+export default KelolaKaryawan;

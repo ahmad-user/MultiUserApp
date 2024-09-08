@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 
-const Navbar = () => {
+const NavbarAdmin = () => {
   const navigate = useNavigate();
 
   const Logout = async () => {
@@ -35,10 +35,10 @@ const Navbar = () => {
         </div>
         <div id="navbarBasicExample" className="navbar-menu">
           <div className="navbar-start">
-            <Link className="navbar-item" to="/UserPage">
+            <Link className="navbar-item" to="/HalamanUser">
               Home
             </Link>
-            <Link className="navbar-item" to="/KaryawanPage">
+            <Link className="navbar-item" to="/HalamanKaryawan">
               Karyawan
             </Link>
           </div>
@@ -58,4 +58,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default NavbarAdmin;

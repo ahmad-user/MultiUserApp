@@ -108,17 +108,17 @@ export const updateKaryawan = async (req, res) => {
     }
   };
 
-  export const getKaryawanById = async (req, res) => {
-    const { id } = req.params;
+  // export const getKaryawanByEmail = async (req, res) => {
+  //   const { email } = req.params;
   
-    try {
-      const karyawan = await Karyawan.findOne({ where: { id } });
+  //   try {
+  //     const karyawan = await Karyawan.findOne({ where: { email } });
   
-      if (!karyawan) return res.status(404).json({ msg: "Karyawan tidak ditemukan" });
+  //     if (!karyawan) return res.status(404).json({ msg: "Karyawan tidak ditemukan" });
   
-      res.json(karyawan);
-    } catch (error) {
-      console.error('Error fetching karyawan:', error);
-      res.status(500).json({ msg: "Server error" });
-    }
-  };
+  //     res.json(karyawan);
+  //   } catch (error) {
+  //     console.error('Error fetching karyawan:', error);
+  //     res.status(500).json({ msg: "Server error" });
+  //   }
+  // };

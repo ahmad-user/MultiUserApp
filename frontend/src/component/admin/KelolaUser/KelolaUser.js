@@ -3,7 +3,7 @@ import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 import { useNavigate } from "react-router-dom";
 
-const Index = () => {
+const KelolaUser = () => {
   const [email, setEmail] = useState("");
   const [users, setUsers] = useState([]);
   const navigate = useNavigate();
@@ -13,8 +13,7 @@ const Index = () => {
       try {
         const response = await axios.get("http://localhost:5000/token");
         const newToken = response.data.accessToken;
-        localStorage.setToken(newToken);
-        localStorage.setItem("token", newToken);
+        localStorage.setItem(newToken);
         const decoded = jwtDecode(newToken);
         setEmail(decoded.email);
       } catch (error) {
@@ -46,7 +45,6 @@ const Index = () => {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log(response.data);
       setUsers(response.data);
     } catch (error) {
       console.error("Error fetching users:", error);
@@ -77,7 +75,9 @@ const Index = () => {
 
   return (
     <div className="container mt-5">
-      <h1>Welcome Back {email}</h1>
+      <h1>
+        <strong>Welcome Back Admin : </strong> {email}
+      </h1>
       <button onClick={() => handleAdd()} className="button is-info">
         Tambah
       </button>
@@ -122,4 +122,4 @@ const Index = () => {
   );
 };
 
-export default Index;
+export default KelolaUser;

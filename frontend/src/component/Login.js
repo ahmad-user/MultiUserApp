@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -11,11 +12,21 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:5000/login", {
+      const response = await axios.post("http://localhost:5000/login", {
         email: email,
         password: password,
       });
-      navigate("/Index");
+
+      const token = response.data.accessToken;
+      localStorage.setItem("token", token);
+
+      const decoded = jwtDecode(token);
+      const userRole = decoded.role;
+      if (userRole === "admin") {
+        navigate("/KelolaUser");
+      } else if (userRole === "user") {
+        navigate("/HalamanUser");
+      }
     } catch (error) {
       if (error.response) {
         setMsg(error.response.data.msg);
