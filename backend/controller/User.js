@@ -5,13 +5,27 @@ import jwt from "jsonwebtoken";
 export const getUsers = async (req, res) => {
   try {
     const users = await Users.findAll({
-      attributes: ["id", "email"],
+      attributes: ["id", "email", "role"],
     });
     res.json(users);
   } catch (error) {
     console.log(error);
   }
 };
+  export const getUserById = async (req, res) => {
+    const { id } = req.params;
+
+    try {
+      const user = await Users.findOne({ where: { id } });
+
+      if (!user) return res.status(404).json({ msg: "User not found" });
+
+      res.json(user);
+    } catch (error) {
+      console.error("Error fetching user:", error);
+      res.status(500).json({ msg: "Server error" });
+    }
+  };
 
 export const getUserByEmail = async (req, res) => {
   try {
@@ -28,7 +42,7 @@ export const getUserByEmail = async (req, res) => {
 };
 
 export const Register = async (req, res) => {
-  const { email, password, confirm_password } = req.body;
+  const { email, role, password, confirm_password } = req.body;
   if (password != confirm_password)
     return res.status(400).json({ msg: "password tidak sesuai" });
   const salt = await bcrypt.genSalt();
@@ -38,6 +52,7 @@ export const Register = async (req, res) => {
     await Users.create({
       email: email,
       password: hashPassword,
+      role: role,
     });
     res.json({ msg: "Register Berhasil" });
   } catch (error) {
@@ -47,7 +62,7 @@ export const Register = async (req, res) => {
 
 export const updateUser = async (req, res) => {
   const { id } = req.params;
-  const { email, password } = req.body;
+  const { email, password, role } = req.body;
 
   try {
     const user = await Users.findOne({
@@ -68,6 +83,7 @@ export const updateUser = async (req, res) => {
       {
         email: email || user.email,
         password: hashPassword || user.password,
+        role: role || user.role,
       },
       {
         where: {

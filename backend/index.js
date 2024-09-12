@@ -3,7 +3,8 @@ import cors from "cors";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import db from "./config/database.js";
-import router from "./routes/index.js";
+import UserRoute from "./routes/UserRoute.js";
+import KaryawanRoute from "./routes/KaryawanRoute.js";
 dotenv.config();
 import karyawan from "./models/KaryawanModel.js";
 import user from "./models/UserModel.js";
@@ -26,6 +27,7 @@ app.use(
 );
 app.use(cookieParser());
 app.use(express.json());
-app.use(router);
+app.use(UserRoute);
+app.use(KaryawanRoute);
 
 app.listen(5000, () => console.log("Server running at port 5000"));
