@@ -13,7 +13,7 @@ const KelolaUser = () => {
       try {
         const response = await axios.get("http://localhost:5000/token");
         const newToken = response.data.accessToken;
-        localStorage.setItem(newToken);
+        localStorage.setItem("token",newToken);
         const decoded = jwtDecode(newToken);
         setEmail(decoded.email);
       } catch (error) {
@@ -86,6 +86,7 @@ const KelolaUser = () => {
           <tr>
             <th>NO</th>
             <th>Email</th>
+            <th>Role</th>
             <th>Action</th>
           </tr>
         </thead>
@@ -95,6 +96,7 @@ const KelolaUser = () => {
               <tr key={user.id}>
                 <td>{index + 1}</td>
                 <td>{user.email}</td>
+                <td>{user.role}</td>
                 <td>
                   <button
                     onClick={() => handleEdit(user)}

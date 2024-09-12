@@ -59,7 +59,7 @@ const EditKaryawan = () => {
           Authorization: `Bearer ${token}`,
         },
       });
-      navigate("/karyawan");
+      navigate("/KelolaKaryawan");
     } catch (error) {
       console.error("Error updating karyawan:", error);
       setMsg("Gagal memperbarui karyawan");

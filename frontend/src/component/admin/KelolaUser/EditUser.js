@@ -3,31 +3,36 @@ import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 
 const EditUser = () => {
-  const { id } = useParams(); // Ambil ID pengguna dari parameter route
+  const { id } = useParams(); 
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState(""); // State untuk password
-  const [confirmPassword, setConfirmPassword] = useState(""); // State untuk konfirmasi password
-  const [msg, setMsg] = useState(""); // State untuk pesan
+  const [role, setRole] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [msg, setMsg] = useState(""); 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const token = localStorage.getItem("token");
-        const response = await axios.get(`http://localhost:5000/users/${id}`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        setEmail(response.data.email);
-      } catch (error) {
-        console.error("Error fetching user:", error);
-        setMsg("Gagal mengambil data pengguna");
-      }
-    };
+useEffect(() => {
+  const fetchUser = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      console.log("ID yang diterima:", id); 
+      const response = await axios.get(`http://localhost:5000/users/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log("Data pengguna:", response.data); 
+      setEmail(response.data.email);
+      setRole(response.data.role);
+    } catch (error) {
+      console.error("Error fetching user:", error);
+      setMsg("Gagal mengambil data pengguna");
+    }
+  };
 
-    fetchUser();
-  }, [id]);
+  fetchUser();
+}, [id]);
+
 
   const handleUpdate = async (e) => {
     e.preventDefault();
@@ -40,14 +45,14 @@ const EditUser = () => {
       const token = localStorage.getItem("token");
       await axios.put(
         `http://localhost:5000/users/${id}`,
-        { email, password },
+        { email, role, password },
         {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         }
       );
-      navigate("/dashboard");
+      navigate("/KelolaUser");
     } catch (error) {
       console.error("Error updating user:", error);
       setMsg("Gagal memperbarui pengguna");
@@ -71,6 +76,24 @@ const EditUser = () => {
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                     />
+                  </div>
+                </div>
+                <div className="field mt-5">
+                  <label className="label">Role</label>
+                  <div className="controls">
+                    <div className="select is-fullwidth">
+                      <select
+                        value={role}
+                        onChange={(e) => setRole(e.target.value)}
+                        required
+                      >
+                        <option value="" disabled>
+                          Pilih Role
+                        </option>
+                        <option value="admin">Admin</option>
+                        <option value="user">User</option>
+                      </select>
+                    </div>
                   </div>
                 </div>
                 <div className="field mt-5">

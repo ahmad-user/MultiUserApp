@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
   const [email, setEmail] = useState('');
+  const [role, setRole] = useState('');
   const [password, setPassword] = useState('');
   const [confirm_password, setConfirm_password] = useState('');
   const [msg, setMsg] = useState('');
@@ -14,6 +15,7 @@ const Register = () => {
     try {
       await axios.post('http://localhost:5000/register', {
         email: email,
+        role: role,
         password: password,
         confirm_password: confirm_password
       });
@@ -47,6 +49,24 @@ const Register = () => {
                   </div>
                 </div>
                 <div className="field mt-5">
+                  <label className="label">Role</label>
+                  <div className="controls">
+                    <div className="select is-fullwidth">
+                      <select
+                        value={role}
+                        onChange={(e) => setRole(e.target.value)}
+                        required
+                      >
+                        <option value="" disabled>
+                          Pilih Role
+                        </option>
+                        <option value="admin">Admin</option>
+                        <option value="user">User</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div className="field mt-5">
                   <label className="label">Password</label>
                   <div className="controls">
                     <input
@@ -70,12 +90,14 @@ const Register = () => {
                     />
                   </div>
                 </div>
-                <p className='has-text-left'>{msg}</p>
+                <p className="has-text-left">{msg}</p>
                 <div className="field mt-5">
-                  <button className="button is-success is-fullwidth">Register</button>
+                  <button className="button is-success is-fullwidth">
+                    Register
+                  </button>
                 </div>
               </form>
-            </div>  
+            </div>
           </div>
         </div>
       </div>

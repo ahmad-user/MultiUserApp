@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import {jwtDecode} from "jwt-decode";
 import { useNavigate } from "react-router-dom";
@@ -8,20 +8,7 @@ const HalamanUser = () => {
   const [users, setUsers] = useState([]);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        await refreshToken();
-        await getUsers();
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    fetchData();
-  }, [navigate]);
-
-  const refreshToken = async () => {
+  const refreshToken = useCallback(async () => {
     try {
       const response = await axios.get("http://localhost:5000/token");
       const newToken = response.data.accessToken;
@@ -35,23 +22,31 @@ const HalamanUser = () => {
         console.error("Error refreshing token:", error);
       }
     }
-  };
+  },[navigate]);
+
+    useEffect(() => {
+    const fetchData = async () => {
+      try {
+        await refreshToken();
+        await getUsers();
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, [refreshToken]);
 
   const getUsers = async () => {
     try {
-      const token = localStorage.getItem("token");
-      console.log("Token yang digunakan:", token);
-
+      const token = localStorage.getItem("token");  
       const response = await axios.get("http://localhost:5000/usersPage", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-
-      console.log("Response status:", response.status);
-      console.log("Response data:", response.data);
       if (response.status === 200) {
-        setUsers(response.data);
+        setUsers(Array.isArray(response.data) ? response.data : [response.data]);
       } else {
         console.error("Unexpected response status:", response.status);
       }
@@ -81,6 +76,7 @@ const HalamanUser = () => {
                 <td>{index + 1}</td>
                 <td>{user.email}</td>
               </tr>
+              
             ))
        
           ) : (

@@ -58,7 +58,7 @@ const TambahKaryawan = () => {
           Authorization: `Bearer ${token}`,
         },
       });
-      navigate("/karyawan");
+      navigate("/KelolaKaryawan");
     } catch (error) {
       console.error("Error adding karyawan:", error);
       localStorage.getItem("Gagal menambahkan karyawan");

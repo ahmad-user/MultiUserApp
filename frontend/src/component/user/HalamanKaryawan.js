@@ -12,12 +12,19 @@ const HalamanKaryawan = () => {
     try {
       const token = localStorage.getItem("token");
       console.log("ini token karyawan", token)
-      const response = await axios.get("http://localhost:5000/karyawan", {
+      const response = await axios.get("http://localhost:5000/karyawanPage", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
+      console.log("ini user", response.status);
+      console.log("ini data", response.data);
       setKaryawan(response.data);
+      if (response.status === 200) {
+        const data = Array.isArray(response.data) ? response.data : [response.data];
+        setKaryawan(data.filter(item => item !== null));
+      }
+
     } catch (error) {
       console.error("Error fetching karyawan:", error);
     }
@@ -56,10 +63,10 @@ const HalamanKaryawan = () => {
             karyawan.map((item, index) => (
               <tr key={item.id}>
                 <td>{index + 1}</td>
-                <td>{item.Nama}</td>
-                <td>{item.Posisi}</td>
+                <td>{item?.nama || "N/A"}</td>
+                <td>{item?.posisi || "N/A"}</td>
                 {/* <td>{item.Ktp}</td> */}
-                <td>{item.Ttl}</td>
+                <td>{item?.ttl || "N/A"}</td>
                 {/* <td>{item.Jenkel}</td> */}
                 {/* <td>{item.Agama}</td>  */}
                 {/* <td>{item.Gol}</td> */}
